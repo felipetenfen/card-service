@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: card-service
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/cardservice?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:cardservice}
+    password: ${DB_PASSWORD:cardservice}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        jdbc:
+          time_zone: UTC
+        format_sql: false
+    show-sql: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-stacktrace: never
+    include-message: never
+    include-binding-errors: never
+    include-exception: false
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    expirationMs: ${JWT_EXPIRATION_MS:3600000}
+
+card:
+  hmac:
+    key: ${CARD_HMAC_KEY}
+  validation:
+    luhn:
+      enabled: ${CARD_VALIDATION_LUHN_ENABLED:false}
+
+seed:
+  username: ${SEED_USERNAME:admin}
+  password: ${SEED_PASSWORD:ChangeMe!2026}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.orm.jdbc.bind: WARN

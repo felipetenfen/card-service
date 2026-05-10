@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;NON_KEYWORDS=VALUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+server:
+  error:
+    include-stacktrace: never
+
+security:
+  jwt:
+    secret: test-jwt-secret-key-for-unit-tests-only-32b
+    expirationMs: 3600000
+
+card:
+  hmac:
+    key: test-hmac-key-for-unit-tests-only-32bytes!
+
+seed:
+  username: admin
+  password: TestPassword!2026
